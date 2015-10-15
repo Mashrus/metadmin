@@ -190,10 +190,10 @@ function violationremove(call,sid,id)
 	if IsValid(call) then
 		call:ChatPrint("Нарушение удалено.")
 	end
+	RemoveViolation(id)
 	GetViolations(sid, function(data)
 		metadmin.players[sid].violations = data
 	end)
-	RemoveViolation(id)
 end
 
 function metadmin.profile(call,sid)
