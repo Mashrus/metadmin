@@ -283,7 +283,7 @@ function metadmin.playeract(nick,sid,rank,Frame)
 	menu:Open()
 end
 
-surface.CreateFont("testfont", {
+surface.CreateFont("ma.font1", {
 	font = "Trebuchet",
 	size = 17,
 	weight = 800,
@@ -299,7 +299,7 @@ surface.CreateFont("testfont", {
 	outline = false
 })
 	
-surface.CreateFont("testfont2", {
+surface.CreateFont("ma.font2", {
 	font = "Trebuchet",
 	size = 30,
 	weight = 800,
@@ -315,7 +315,7 @@ surface.CreateFont("testfont2", {
 	outline = false
 })
 
-surface.CreateFont("testfont3", {
+surface.CreateFont("ma.font3", {
 	font = "Trebuchet",
 	size = 24,
 	weight = 800,
@@ -331,7 +331,7 @@ surface.CreateFont("testfont3", {
 	outline = false
 })
 
-surface.CreateFont("testfont4", {
+surface.CreateFont("ma.font4", {
 	font = "Trebuchet",
 	size = 20,
 	weight = 800,
@@ -347,7 +347,7 @@ surface.CreateFont("testfont4", {
 	outline = false
 })
 
-surface.CreateFont("testfont5", {
+surface.CreateFont("ma.font5", {
 	font = "Trebuchet",
 	size = 20,
 	weight = 800,
@@ -366,7 +366,7 @@ surface.CreateFont("testfont5", {
 local badplok = {}
 function metadmin.profile(tab)
 	if tab.badpl and not badplok[tab.SID] then
-		local frame = Derma_Message("Этот игрок был отмечен плохим в системе.\nПричина: "..tab.badpl,"Предупреждение","Ок")
+		local frame = Derma_Message("Этот игрок был отмечен 'плохим' в системе.\nПричина: "..tab.badpl,"Предупреждение","Ок")
 		local hided = vgui.Create("DCheckBoxLabel",frame)
 		hided:SetSize(100,20)
 		hided:SetPos(165,5)
@@ -445,8 +445,8 @@ function metadmin.profile(tab)
 		violations:SetBackgroundColor(Color(128,128,128))
 		violations.PaintOver = function(self,w,h)
 			if tab.nvio == 0 then
-				draw.SimpleText("Этот игрок еще ничего не нарушил.", "testfont3", w/2, 20, Color(50,50,50), TEXT_ALIGN_CENTER)
-				draw.SimpleText("Пока...", "testfont", w/2, 60, Color(50,50,50), TEXT_ALIGN_CENTER)
+				draw.SimpleText("Этот игрок еще ничего не нарушил.", "ma.font3", w/2, 20, Color(50,50,50), TEXT_ALIGN_CENTER)
+				draw.SimpleText("Пока...", "ma.font1", w/2, 60, Color(50,50,50), TEXT_ALIGN_CENTER)
 			end
 		end
 		local DScrollPanel = vgui.Create("DScrollPanel",violations)
@@ -499,7 +499,7 @@ function metadmin.profile(tab)
 		examinfo:SetBackgroundColor(Color(128,128,128))
 		examinfo.PaintOver = function(self,w,h)
 			if #tab.exam == 0 then
-				draw.SimpleText("Этот игрок пока не сдал ни одного экзамена.", "testfont3", w/2, 20, Color(50,50,50), TEXT_ALIGN_CENTER)
+				draw.SimpleText("Этот игрок пока не сдал ни одного экзамена.", "ma.font3", w/2, 20, Color(50,50,50), TEXT_ALIGN_CENTER)
 			end
 		end
 		local DScrollPanel = vgui.Create("DScrollPanel",examinfo)
@@ -531,7 +531,7 @@ function metadmin.profile(tab)
 		answers:SetBackgroundColor(Color(128,128,128))
 		answers.PaintOver = function(self,w,h)
 			if #tab.exam_answers == 0 then
-				draw.SimpleText("Этот игрок пока не сдал ни одного теста.", "testfont3", w/2, 20, Color(50,50,50), TEXT_ALIGN_CENTER)
+				draw.SimpleText("Этот игрок пока не сдал ни одного теста.", "ma.font3", w/2, 20, Color(50,50,50), TEXT_ALIGN_CENTER)
 			end
 		end
 		local DScrollPanel = vgui.Create("DScrollPanel",answers)
@@ -617,13 +617,13 @@ function metadmin.profile(tab)
 			surface.SetDrawColor(tab.status.nom == 1 and Color(3,111,35) or tab.status.nom == 2 and Color(255,255,0) or Color(178,34,34))
 			draw.NoTexture()
 			surface.DrawPoly({{ x = 0, y = 0 },{ x = 40, y = 0 },{ x = w, y = h },{ x = w-40, y = h }})
-			draw.SimpleText(GetHostName(), "testfont", w/2, 20, Color(50,50,50), TEXT_ALIGN_CENTER)
-			draw.SimpleText("ТАЛОН ПРЕДУПРЕЖДЕНИЯ №"..tab.status.nom, "testfont2", w/2, 55, Color(50,50,50), TEXT_ALIGN_CENTER)
-			draw.SimpleText("Машиниста, помощника машиниста", "testfont3", w/2, 90, Color(50,50,50), TEXT_ALIGN_CENTER)
-			draw.SimpleText(tab.Nick, "testfont4", w/2, 120, Color(50,50,50), TEXT_ALIGN_CENTER)
-			draw.SimpleText(tab.SID, "testfont4", w/2, 140, Color(50,50,50), TEXT_ALIGN_CENTER)
-			draw.SimpleText("Выдан: "..os.date( "%X - %d/%m/%Y" ,tab.status.date), "testfont5", w/2, 180, Color(50,50,50), TEXT_ALIGN_CENTER)
-			draw.SimpleText(tab.status.admin, "testfont5", w/2, 200, Color(50,50,50), TEXT_ALIGN_CENTER)
+			draw.SimpleText(GetHostName(), "ma.font1", w/2, 20, Color(50,50,50), TEXT_ALIGN_CENTER)
+			draw.SimpleText("ТАЛОН ПРЕДУПРЕЖДЕНИЯ №"..tab.status.nom, "ma.font2", w/2, 55, Color(50,50,50), TEXT_ALIGN_CENTER)
+			draw.SimpleText("Машиниста, помощника машиниста", "ma.font3", w/2, 90, Color(50,50,50), TEXT_ALIGN_CENTER)
+			draw.SimpleText(tab.Nick, "ma.font4", w/2, 120, Color(50,50,50), TEXT_ALIGN_CENTER)
+			draw.SimpleText(tab.SID, "ma.font4", w/2, 140, Color(50,50,50), TEXT_ALIGN_CENTER)
+			draw.SimpleText("Выдан: "..os.date( "%X - %d/%m/%Y" ,tab.status.date), "ma.font5", w/2, 180, Color(50,50,50), TEXT_ALIGN_CENTER)
+			draw.SimpleText(tab.status.admin, "ma.font5", w/2, 200, Color(50,50,50), TEXT_ALIGN_CENTER)
 		end
 		tabs:AddSheet("Талон",talon,"icon16/vcard.png")
 	end
