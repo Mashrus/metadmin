@@ -65,16 +65,22 @@ end
 
 function CreateData(sid)
 	local status = "{\"date\":"..os.time()..",\"nom\":1,\"admin\":\"\"}"
-    local q = db:query("INSERT INTO `players` (`SID`,`group`,`status`) VALUES ('"..sid.."','user','"..status.."')")
+	local group = "user"
+    local q = db:query("INSERT INTO `players` (`SID`,`group`,`status`) VALUES ('"..sid.."','"..group.."','"..status.."')")
+	local group = "user"
 	local ply = player.GetBySteamID(sid)
 	if ply then
-		local userInfo = ULib.ucl.authed[ ply:UniqueID() ]
-		local id = ULib.ucl.getUserRegisteredID( ply )
-		if not id then id = ply:SteamID() end
-		ULib.ucl.addUser( id, userInfo.allow, userInfo.deny, "user" )
+		if metadmin.groupwrite then
+			group = ply:GetUserGroup()
+		else
+			local userInfo = ULib.ucl.authed[ply:UniqueID()]
+			local id = ULib.ucl.getUserRegisteredID(ply)
+			if not id then id = ply:SteamID() end
+			ULib.ucl.addUser(id,userInfo.allow,userInfo.deny,group)
+		end
 	end
 	metadmin.players[sid] = {}
-	metadmin.players[sid].rank = "user"
+	metadmin.players[sid].rank = group
 	metadmin.players[sid].status = {}
 	metadmin.players[sid].status.nom = 1
 	metadmin.players[sid].status.admin = ""

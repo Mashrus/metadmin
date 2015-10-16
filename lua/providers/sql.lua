@@ -70,7 +70,7 @@ function CreateData(sid)
 	local group = "user"
 	local ply = player.GetBySteamID(sid)
 	if ply then
-		if hellreach.groupwrite then
+		if metadmin.groupwrite then
 			group = ply:GetUserGroup()
 		else
 			local userInfo = ULib.ucl.authed[ply:UniqueID()]
