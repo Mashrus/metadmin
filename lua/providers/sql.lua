@@ -67,16 +67,21 @@ end
 
 function CreateData(sid)
 	local status = "{\"date\":"..os.time()..",\"nom\":1,\"admin\":\"\"}"
-	result = sql.Query("INSERT INTO `players` (`id`,`SID`,`group`,`status`) VALUES (NULL,'"..sid.."','user','"..status.."')")
+	local group = "user"
 	local ply = player.GetBySteamID(sid)
 	if ply then
-		local userInfo = ULib.ucl.authed[ply:UniqueID()]
-		local id = ULib.ucl.getUserRegisteredID(ply )
-		if not id then id = ply:SteamID() end
-		ULib.ucl.addUser(id,userInfo.allow,userInfo.deny,"user")
+		if hellreach.groupwrite then
+			group = ply:GetUserGroup()
+		else
+			local userInfo = ULib.ucl.authed[ply:UniqueID()]
+			local id = ULib.ucl.getUserRegisteredID(ply)
+			if not id then id = ply:SteamID() end
+			ULib.ucl.addUser(id,userInfo.allow,userInfo.deny,group)
+		end
 	end
+	result = sql.Query("INSERT INTO `players` (`id`,`SID`,`group`,`status`) VALUES (NULL,'"..sid.."','"..group.."','"..status.."')")
 	metadmin.players[sid] = {}
-	metadmin.players[sid].rank = "user"
+	metadmin.players[sid].rank = group
 	metadmin.players[sid].status = {}
 	metadmin.players[sid].status.nom = 1
 	metadmin.players[sid].status.admin = ""

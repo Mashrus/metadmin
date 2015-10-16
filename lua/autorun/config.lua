@@ -1,6 +1,7 @@
 metadmin = metadmin or {}
 metadmin.server = "SERVER"
 metadmin.category = "MetrostroiAdmin"
+metadmin.groupwrite = false -- Записывает группу при первом входе(true)/Устанавливает user при первом входе(false)
 metadmin.provider = "sql" -- mysql,sql
 metadmin.ranks = {
 	["driver3class"] = "Машинист 3 класса",
