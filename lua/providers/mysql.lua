@@ -123,17 +123,17 @@ function GetQuestions(cb)
     q:start()
 end
 
-function SaveQuestion(id,questions,inmenu)
+function SaveQuestion(id,questions,enabled)
 	local table = ""
 	if questions then
 		table = "`questions` = '"..questions.."'"
 	end
-	local inm = ""
-	if inmenu then
-		inm = "`inmenu` = '"..inmenu.."'"
+	local enb = ""
+	if enabled then
+		enb = "`enabled` = '"..enabled.."'"
 		if questions then questions = questions.."," end
 	end
-   local q = db:query("UPDATE `questions` SET "..table..inm.." WHERE `id`='"..id.."'")
+   local q = db:query("UPDATE `questions` SET "..table..enb.." WHERE `id`='"..id.."'")
   q.onError = function(err, sql)
         if db:status() ~= mysqloo.DATABASE_CONNECTED then
             db:connect()
@@ -169,7 +169,7 @@ function RemoveQuestion(id)
 end
 
 function AddQuestion(name)
-    local q = db:query("INSERT INTO `questions` (`name`,`questions`,`inmenu`) VALUES ('"..db:escape(name).."','{}','0')")
+    local q = db:query("INSERT INTO `questions` (`name`,`questions`,`enabled`) VALUES ('"..db:escape(name).."','{}','0')")
   q.onError = function(err, sql)
         if db:status() ~= mysqloo.DATABASE_CONNECTED then
             db:connect()
