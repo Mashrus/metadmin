@@ -606,7 +606,8 @@ function metadmin.profile(tab)
 			local info = vgui.Create("DLabel",DPanel)
 			info:SetSize(574,15)
 			info:SetPos(25,5)
-			info:SetText("| "..(metadmin.questions[tonumber(v.questions)] and metadmin.questions[tonumber(v.questions)].name) or "Шаблон удален".." | Дата: "..os.date( "%X - %d/%m/%Y" ,v.date))
+			local text = (metadmin.questions[tonumber(v.questions)] and metadmin.questions[tonumber(v.questions)].name) or "Шаблон удален"
+			info:SetText("| "..text.." | Дата: "..os.date( "%X - %d/%m/%Y" ,v.date))
 			num = num + 1
 		end
 		tabs:AddSheet("Результаты тестов", answers,"icon16/page_edit.png")

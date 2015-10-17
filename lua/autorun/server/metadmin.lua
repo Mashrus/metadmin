@@ -80,7 +80,8 @@ local function spawn(ply)
 		net.Send(ply)
 	end
 end
-hook.Add("PlayerInitialSpawn", "questions", function(ply) spawn(ply) ply.plombs = {} end)
+
+hook.Add("PlayerInitialSpawn", "questions", function(ply) GetDataSID(ply:SteamID()) spawn(ply) ply.plombs = {} end)
 
 function refreshquestions()
 	questionstab = {}

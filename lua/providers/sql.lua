@@ -8,7 +8,6 @@ local function Start()
 		`sid` text NOT NULL,
 		`date` text NOT NULL,
 		`questions` text NOT NULL,
-		`answers` text NOT NULL,
 		`status` int(11) NOT NULL DEFAULT '0'
 		)]])
 	end
@@ -37,7 +36,6 @@ local function Start()
 		`id` INTEGER PRIMARY KEY AUTOINCREMENT,
 		`name` text NOT NULL,
 		`questions` text NOT NULL,
-		`answers` text,
 		`enabled` int(1) NOT NULL
 		)]])
 	end
@@ -85,7 +83,7 @@ function CreateData(sid)
 	metadmin.players[sid].status = {}
 	metadmin.players[sid].status.nom = 1
 	metadmin.players[sid].status.admin = ""
-	metadmin.players[sid].status.date = 0
+	metadmin.players[sid].status.date = os.time()
 end
 
 function GetQuestions(cb)
@@ -190,8 +188,7 @@ function GetDataSID(sid,cb,nocreate)
 			metadmin.players[sid].exam_answers = data
 		end)
 		if cb then
-			timer.Simple( 0.25, function() cb() end )
+			timer.Simple(0.25,function() cb() end)
 		end
 	end)
 end
-hook.Add( "PlayerInitialSpawn", "sql", function(ply) GetDataSID(ply:SteamID()) end )

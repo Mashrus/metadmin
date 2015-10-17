@@ -66,8 +66,6 @@ end
 function CreateData(sid)
 	local status = "{\"date\":"..os.time()..",\"nom\":1,\"admin\":\"\"}"
 	local group = "user"
-    local q = db:query("INSERT INTO `players` (`SID`,`group`,`status`) VALUES ('"..sid.."','"..group.."','"..status.."')")
-	local group = "user"
 	local ply = player.GetBySteamID(sid)
 	if ply then
 		if metadmin.groupwrite then
@@ -84,7 +82,8 @@ function CreateData(sid)
 	metadmin.players[sid].status = {}
 	metadmin.players[sid].status.nom = 1
 	metadmin.players[sid].status.admin = ""
-	metadmin.players[sid].status.date = 0
+	metadmin.players[sid].status.date = os.time()
+	local q = db:query("INSERT INTO `players` (`SID`,`group`,`status`) VALUES ('"..sid.."','"..group.."','"..status.."')")
     function q:onError(err, sql)
         if db:status() ~= mysqloo.DATABASE_CONNECTED then
             db:connect()
@@ -348,10 +347,10 @@ function GetDataSID(sid,cb,nocreate)
 			local target = player.GetBySteamID(sid)
 			if target then
 				if target:GetUserGroup() != data[1].group then
-					local userInfo = ULib.ucl.authed[ target:UniqueID() ]
-					local id = ULib.ucl.getUserRegisteredID( target )
+					local userInfo = ULib.ucl.authed[target:UniqueID()]
+					local id = ULib.ucl.getUserRegisteredID(target)
 					if not id then id = sid end
-					ULib.ucl.addUser( id, userInfo.allow, userInfo.deny, data[1].group )
+					ULib.ucl.addUser(id,userInfo.allow,userInfo.deny,data[1].group)
 				end
 			end
 		else
@@ -368,8 +367,7 @@ function GetDataSID(sid,cb,nocreate)
 			metadmin.players[sid].exam_answers = data
 		end)
 		if cb then
-			timer.Simple( 0.25, function() cb() end )
+			timer.Simple(0.25,function() cb() end)
 		end
 	end)
 end
-hook.Add( "PlayerInitialSpawn", "mysql", function(ply) GetDataSID(ply:SteamID()) end )

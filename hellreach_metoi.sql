@@ -74,7 +74,6 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `id` int(11) NOT NULL,
   `name` text NOT NULL,
   `questions` text NOT NULL,
-  `answers` text NOT NULL,
   `enabled` int(1) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
