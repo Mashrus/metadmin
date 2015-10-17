@@ -455,7 +455,7 @@ function metadmin.profile(tab)
 		local num = 0
 		for k,v in pairs(tab.violations) do
 			local DPanel = vgui.Create("DPanel",DScrollPanel)
-			DPanel:SetPos( 0,120*num)
+			DPanel:SetPos(0,120*num)
 			DPanel:SetSize(584,115)
 			DLabel:SetDark(1)
 			if Access("ma.violationremove") then
@@ -473,6 +473,7 @@ function metadmin.profile(tab)
 							net.WriteString(v.id)
 						net.SendToServer()
 						Frame:Close()
+						RunConsoleCommand("ulx","pr",tab.SID)
 					end)
 					row:SetIcon("icon16/table_delete.png")
 					local row = menu:AddOption("Отмена")

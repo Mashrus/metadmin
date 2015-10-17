@@ -101,7 +101,12 @@ function refreshquestions()
 end
 
 local function GetNick(sid,def)
-	return (ULib.ucl.users[sid] and ULib.ucl.users[sid].name) or def
+	local nick = (ULib.ucl.users[sid] and ULib.ucl.users[sid].name) or def
+	local ply = player.GetBySteamID(sid)
+	if ply then
+		nick = ply:Nick()
+	end
+	return nick
 end
 
 net.Receive( "metadmin.action", function(len, ply)
